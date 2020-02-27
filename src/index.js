@@ -1,13 +1,30 @@
 import 'core-js';
+
 import { createServer } from 'http';
 
-const requestListener = function(req, res) {
-  res.writeHead(200);
-  res.end('Server running!');
-};
+import app from './app';
+import { connectDatabase } from './database';
+import { GRAPHQL_PORT } from './config';
 
-const server = createServer(requestListener);
-server.listen(8080);
+(async () => {
+  try {
+    await connectDatabase();
+    console.log('Database connection established!');
+  } catch (error) {
+    console.error('Could not connect to database', { error });
+    throw error;
+  }
+
+  const server = createServer(app.callback());
+  server.listen(GRAPHQL_PORT, () => {
+    console.log(`Server started on port ${GRAPHQL_PORT}`);
+    console.log(
+      `GraphiQL is running here: http://localhost:${GRAPHQL_PORT}/graphql`
+    );
+  });
+})();
+
+let currentApp = app;
 
 if (module.hot) {
   module.hot.accept('./index.js', () => {
