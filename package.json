@@ -20,9 +20,7 @@
     "auto-reload-webpack-plugin": "^1.1.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",
-    "babel-plugin-relay": "^9.0.0",
     "regenerator-runtime": "^0.13.3",
-    "relay-compiler": "^9.0.0",
     "rimraf": "^3.0.2",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11",
@@ -46,8 +44,6 @@
     "koa-graphql": "^0.8.0",
     "koa-logger": "^3.2.1",
     "koa-router": "^8.0.8",
-    "mongoose": "^5.9.2",
-    "react-relay": "^0.0.0-experimental-8cc94ddc",
-    "relay-runtime": "^9.0.0"
+    "mongoose": "^5.9.2"
   }
 }
