@@ -1,7 +1,7 @@
 import { GraphQLObjectType, GraphQLList } from 'graphql';
 
-import { UserType } from '../modules/user/UserType';
-import { UserModel } from '../modules/user/UserModel';
+import { UserType } from './user/UserType';
+import { UserModel } from './user/UserModel';
 
 const RootQueryType = new GraphQLObjectType({
   name: 'Query',
