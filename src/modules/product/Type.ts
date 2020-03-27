@@ -4,14 +4,16 @@ import {
   GraphQLString,
   GraphQLInt
 } from 'graphql';
+import { SellerType } from '../seller/Type';
 
-export const ProductType = new GraphQLObjectType({
+export let ProductType: GraphQLObjectType = new GraphQLObjectType({
   name: 'Product',
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
     price: { type: GraphQLString },
-    stockQtt: { type: GraphQLInt }
+    stockQtt: { type: GraphQLInt },
+    seller: { type: SellerType }
   })
 });

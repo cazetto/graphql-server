@@ -4,8 +4,8 @@ import graphqlHTTP from 'koa-graphql';
 import cors from '@koa/cors';
 import { schema } from './schema';
 
-const app = new Koa();
-const router = new Router();
+let app = new Koa();
+let router = new Router();
 
 app.use(
   cors({

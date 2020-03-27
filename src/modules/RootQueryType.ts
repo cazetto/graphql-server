@@ -4,12 +4,12 @@ import { UserType } from './user/UserType';
 import { UserModel } from './user/UserModel';
 
 import { ProductType } from './product/Type';
-import { products } from './product/Resolvers';
+import { products } from './product/Product';
 
 import { SellerType } from './seller/Type';
-import { sellers } from './seller/Resolvers';
+import { sellers } from './seller/Seller';
 
-const RootQueryType = new GraphQLObjectType({
+let RootQueryType = new GraphQLObjectType({
   name: 'Query',
   description: 'Root query',
   fields: {
