@@ -1,6 +1,5 @@
 import { ProductModel } from './Model';
 import { SellerModel } from '../seller/Model';
-import { IProduct } from './typing';
 
 export function products() {
   return ProductModel.find({}).populate('seller');
@@ -26,13 +25,8 @@ export async function createProduct({
     stockQtt,
     seller
   });
-
   await newProduct.save();
-
   let currentSeller = await SellerModel.findOne({ _id: seller });
-
-  console.log(currentSeller);
-
   currentSeller?.products.push(newProduct.id);
   currentSeller?.save();
 
