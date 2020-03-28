@@ -1,4 +1,4 @@
-import { Document, Types, Model } from 'mongoose';
+import { Document, Model } from 'mongoose';
 
 export enum Gender {
   Male = 0,
@@ -27,5 +27,7 @@ interface IUserBase extends IUserSchema {
   getGender(): string;
 }
 
-export interface IUser extends IUserBase {}
+export interface IUser extends IUserBase {
+  _doc: IUserSchema;
+}
 export interface IUserModel extends Model<IUser> {}

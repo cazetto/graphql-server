@@ -1,7 +1,7 @@
 import { GraphQLObjectType, GraphQLList } from 'graphql';
 
 import { UserType } from './user/UserType';
-import { users } from './user/User';
+import { findUsers } from './user/UserResolvers';
 
 import { ProductType } from './product/Type';
 import { products } from './product/Product';
@@ -16,7 +16,7 @@ let RootQueryType = new GraphQLObjectType({
     users: {
       type: new GraphQLList(UserType),
       resolve() {
-        return users();
+        return findUsers();
       }
     },
     products: {
