@@ -64,7 +64,7 @@ export async function login(userParams: {
       throw new Error('Wrong password!');
     }
     const token = jwt.sign({ id: user._id }, 'SECRET');
-    return { user: { ...user._doc }, token };
+    return { ...user._doc, token };
   } catch (error) {
     throw error;
   }
