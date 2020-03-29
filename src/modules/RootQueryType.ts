@@ -1,7 +1,7 @@
-import { GraphQLObjectType, GraphQLList } from 'graphql';
+import { GraphQLObjectType, GraphQLList, GraphQLString } from 'graphql';
 
 import { UserType } from './user/UserType';
-import { findUsers } from './user/UserResolvers';
+import { findUsers, login, verifyToken } from './user/UserResolvers';
 
 import { ProductType } from './product/Type';
 import { products } from './product/Product';
@@ -13,6 +13,26 @@ let RootQueryType = new GraphQLObjectType({
   name: 'Query',
   description: 'Root query',
   fields: {
+    login: {
+      type: UserType,
+      args: {
+        email: { type: GraphQLString },
+        userName: { type: GraphQLString },
+        password: { type: GraphQLString }
+      },
+      resolve(source, { email, userName, password }) {
+        return login({ email, userName, password });
+      }
+    },
+    verifyToken: {
+      type: UserType,
+      args: {
+        token: { type: GraphQLString }
+      },
+      resolve(source, { token }) {
+        return verifyToken(token);
+      }
+    },
     users: {
       type: new GraphQLList(UserType),
       resolve() {

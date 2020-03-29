@@ -1,4 +1,4 @@
-import { hash } from 'bcryptjs';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { UserModel } from './UserModel';
 import { ICreditCard } from './typing';
@@ -26,7 +26,7 @@ export async function createUser(userParams: {
     if (existingUserEmail) {
       throw new Error('Email is already registered!');
     }
-    let hashedPassword = await hash(password, 10);
+    let hashedPassword = await bcrypt.hash(password, 10);
 
     let user = new UserModel({
       ...userParams,
@@ -35,6 +35,46 @@ export async function createUser(userParams: {
     user.save();
     let token = jwt.sign({ id: user.id }, 'SECRET');
     return { user: { ...user._doc }, token };
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function login(userParams: {
+  email?: string;
+  userName?: string;
+  password: string;
+}) {
+  let { email, userName, password } = userParams;
+  if (!email && !userName) {
+    throw new Error('Email or Username must be informed!');
+  }
+  try {
+    let user;
+    if (email) {
+      user = await UserModel.findOne({ email });
+    } else {
+      user = await UserModel.findOne({ userName });
+    }
+    if (!user) {
+      throw new Error('User does not exist');
+    }
+    let passwordIsValid = bcrypt.compareSync(password, user.password);
+    if (!passwordIsValid) {
+      throw new Error('Wrong password!');
+    }
+    const token = jwt.sign({ id: user._id }, 'SECRET');
+    return { user: { ...user._doc }, token };
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function verifyToken(token: string) {
+  try {
+    let decoded: any = jwt.verify(token, 'SECRET');
+    let user = await UserModel.findOne({ _id: decoded.id });
+    return user?._doc;
   } catch (error) {
     throw error;
   }
