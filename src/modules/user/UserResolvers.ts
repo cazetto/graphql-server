@@ -2,9 +2,14 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { UserModel } from './UserModel';
 import { ICreditCard } from './typing';
+let PASSWORD_VALIDATION_REGEX = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
-export function findUsers() {
-  return UserModel.find({});
+export async function findUsers() {
+  const users = await UserModel.find({});
+
+  console.log(users);
+
+  return users;
 }
 
 export async function createUser(userParams: {
@@ -20,19 +25,24 @@ export async function createUser(userParams: {
     let { userName, email, password } = userParams;
     let existingUserName = await UserModel.findOne({ userName });
     let existingUserEmail = await UserModel.findOne({ email });
+    let isValidPassword = password.match(PASSWORD_VALIDATION_REGEX);
     if (existingUserName) {
       throw new Error('Username is already registered!');
     }
     if (existingUserEmail) {
       throw new Error('Email is already registered!');
     }
+    if (!isValidPassword) {
+      throw new Error(
+        'The password must be with 6 to 16 characters which contain at least one numeric digit and a special character'
+      );
+    }
     let hashedPassword = await bcrypt.hash(password, 10);
-
     let user = new UserModel({
       ...userParams,
       password: hashedPassword
     });
-    user.save();
+    await user.save();
     let token = jwt.sign({ id: user.id }, 'SECRET');
     return { user: { ...user._doc }, token };
   } catch (error) {
