@@ -26,7 +26,7 @@ let userSchema: Schema = new Schema({
     lowercase: true,
     validate: function(value: string) {
       const isValidEmail: boolean = isEmail(value);
-      if (isValidEmail) {
+      if (!isValidEmail) {
         throw new Error(`${value} is not a valid email!`);
       }
       return isValidEmail;

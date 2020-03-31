@@ -70,9 +70,6 @@ describe('UserModel', function() {
 
   describe('Query all', function() {
     it('should return an array ', function(done) {
-      // const users = UserModel.find({});
-      // console.log(users);
-
       let UserModelMock = sinon.mock(UserModel);
       UserModelMock.expects('find').yields(null, []);
       UserModel.find(function(err, result) {

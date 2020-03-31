@@ -6,9 +6,6 @@ let PASSWORD_VALIDATION_REGEX = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]
 
 export async function findUsers() {
   const users = await UserModel.find({});
-
-  console.log(users);
-
   return users;
 }
 
