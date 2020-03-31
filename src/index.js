@@ -15,7 +15,7 @@ import { GRAPHQL_PORT } from './config';
     throw error;
   }
 
-  const server = createServer(app.callback());
+  let server = createServer(app.callback());
   server.listen(GRAPHQL_PORT, () => {
     console.log(`Server started on port ${GRAPHQL_PORT}`);
     console.log(
