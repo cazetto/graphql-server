@@ -11,7 +11,7 @@ const router = new Router();
 app.use(
   cors({
     origin: '*',
-    allowMethods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH'],
+    allowMethods: ['POST'],
   })
 );
 
