@@ -1,7 +1,9 @@
 import mongoose, { Schema } from 'mongoose';
 
 const UserSchema = new Schema({
-  name: { type: String },
+  firstName: { type: String },
+  lastName: { type: String },
+  userName: { type: String },
 });
 
 export const UserModel = mongoose.model('user', UserSchema);

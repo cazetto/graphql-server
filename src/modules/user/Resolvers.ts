@@ -4,9 +4,19 @@ export function users() {
   return UserModel.find({});
 }
 
-export function createUser({ name }: { name: string }) {
+export function createUser({
+  firstName,
+  lastName,
+  userName,
+}: {
+  firstName: string;
+  lastName: string;
+  userName: string;
+}) {
   const newUser = new UserModel({
-    name,
+    firstName,
+    lastName,
+    userName,
   });
 
   newUser.save();

@@ -3,7 +3,7 @@ import Router from 'koa-router';
 import graphqlHTTP from 'koa-graphql';
 import cors from '@koa/cors';
 import { schema } from './schema';
-import { seed } from './seed';
+// import { seed } from './seed';
 
 const app = new Koa();
 const router = new Router();
@@ -24,5 +24,7 @@ router.all(
 );
 
 app.use(router.routes()).use(router.allowedMethods());
+
+// seed();
 
 export default app;
