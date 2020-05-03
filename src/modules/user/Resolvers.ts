@@ -4,6 +4,10 @@ export function users() {
   return UserModel.find({});
 }
 
+export function userMe() {
+  return UserModel.findOne({ firstName: 'André' });
+}
+
 export function createUser({
   firstName,
   lastName,
