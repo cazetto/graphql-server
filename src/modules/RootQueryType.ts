@@ -1,7 +1,10 @@
 import { GraphQLObjectType, GraphQLList } from 'graphql';
 
-import { UserType } from './user/UserType';
-import { UserModel } from './user/UserModel';
+import { UserType } from './user/Type';
+import { users } from './user/Resolvers';
+
+import { ProductType } from './product/Type';
+import { products } from './product/Resolvers';
 
 const RootQueryType = new GraphQLObjectType({
   name: 'Query',
@@ -10,10 +13,16 @@ const RootQueryType = new GraphQLObjectType({
     users: {
       type: new GraphQLList(UserType),
       resolve() {
-        return UserModel.find({});
-      }
-    }
-  }
+        return users();
+      },
+    },
+    products: {
+      type: new GraphQLList(ProductType),
+      resolve() {
+        return products();
+      },
+    },
+  },
 });
 
 export default RootQueryType;
